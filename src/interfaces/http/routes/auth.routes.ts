@@ -14,4 +14,12 @@ authRouter.post('/login', async (req: Request, res: Response, next: NextFunction
   }
 });
 
+authRouter.post('/register', async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    await authController.register(req, res);
+  } catch (error) {
+    next(error);
+  }
+});
+
 export default authRouter;
