@@ -1,3 +1,4 @@
+import 'dotenv/config';
 import 'reflect-metadata';
 import express, { Express } from 'express';
 import swaggerUi from 'swagger-ui-express';
@@ -6,11 +7,9 @@ import { swaggerSpec } from './config/swagger';
 import { environment } from './config/environment';
 import authRouter from './interfaces/http/routes/auth.routes';
 import { errorHandler } from './interfaces/http/middleware/errorHandler';
+import { initializePrismaClient } from './shared/database/PrismaClient';
 
 const app: Express = express();
-
-// Register dependencies
-registerDependencies();
 
 // Middleware
 app.use(express.json());
@@ -30,12 +29,21 @@ app.use('/auth', authRouter);
 // Error handling middleware (must be last)
 app.use(errorHandler);
 
-// Start server
-const port = environment.port;
-app.listen(port, () => {
-  console.log(`🚀 Server is running on http://localhost:${port}`);
-  console.log(`📚 Swagger documentation available at http://localhost:${port}/api-docs`);
-  console.log(`❤️  Health check endpoint: http://localhost:${port}/health`);
+async function bootstrap() {
+  const prismaClient = await initializePrismaClient();
+  registerDependencies(prismaClient);
+
+  const port = environment.port;
+  app.listen(port, () => {
+    console.log(`🚀 Server is running on http://localhost:${port}`);
+    console.log(`📚 Swagger documentation available at http://localhost:${port}/api-docs`);
+    console.log(`❤️  Health check endpoint: http://localhost:${port}/health`);
+  });
+}
+
+bootstrap().catch((err) => {
+  console.error('Failed to start server:', err);
+  process.exit(1);
 });
 
 export default app;
