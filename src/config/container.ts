@@ -2,6 +2,7 @@ import 'reflect-metadata';
 import { container } from 'tsyringe';
 import { AuthController } from '../interfaces/http/controllers/AuthController';
 import { LoginUseCase } from '../domains/auth/usecases/LoginUseCase';
+import { CreateUserUseCase } from '../domains/auth/usecases/CreateUserUseCase';
 import { getPrismaClient } from '../shared/database/PrismaClient';
 
 export function registerDependencies() {
