@@ -63,6 +63,56 @@ const options = {
             },
           },
         },
+        CreateUserRequest: {
+          type: 'object',
+          required: ['email', 'password', 'firstName', 'lastName'],
+          properties: {
+            email: {
+              type: 'string',
+              format: 'email',
+              example: 'newuser@example.com',
+            },
+            password: {
+              type: 'string',
+              format: 'password',
+              example: 'password123',
+            },
+            firstName: {
+              type: 'string',
+              example: 'John',
+            },
+            middleName: {
+              type: 'string',
+              example: 'Paul',
+            },
+            lastName: {
+              type: 'string',
+              example: 'Doe',
+            },
+          },
+        },
+        CreateUserResponse: {
+          type: 'object',
+          properties: {
+            message: {
+              type: 'string',
+              example: 'User created successfully',
+            },
+            user: {
+              type: 'object',
+              properties: {
+                id: { type: 'string' },
+                email: { type: 'string' },
+                firstName: { type: 'string' },
+                middleName: { type: 'string' },
+                lastName: { type: 'string' },
+                isActive: { type: 'boolean' },
+                createdAt: { type: 'string', format: 'date-time' },
+                updatedAt: { type: 'string', format: 'date-time' },
+              },
+            },
+          },
+        },
       },
     },
   },
