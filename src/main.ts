@@ -6,6 +6,7 @@ import { registerDependencies } from './config/container';
 import { swaggerSpec } from './config/swagger';
 import { environment } from './config/environment';
 import authRouter from './interfaces/http/routes/auth.routes';
+import profileRouter from './interfaces/http/routes/profile.routes';
 import { errorHandler } from './interfaces/http/middleware/errorHandler';
 import { initializePrismaClient } from './shared/database/PrismaClient';
 
@@ -24,7 +25,8 @@ app.get('/health', (req, res) => {
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 // Routes
-app.use('/auth', authRouter);
+app.use('/api/auth', authRouter);
+app.use('/api/users', profileRouter);
 
 // Error handling middleware (must be last)
 app.use(errorHandler);
