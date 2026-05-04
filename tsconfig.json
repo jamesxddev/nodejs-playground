@@ -17,7 +17,8 @@
     "emitDecoratorMetadata": true,
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
-    "ignoreDeprecations": "5.0"
+    "ignoreDeprecations": "6.0",
+    "types": ["jest", "node"]
   },
   "ts-node": {
     "compilerOptions": {
