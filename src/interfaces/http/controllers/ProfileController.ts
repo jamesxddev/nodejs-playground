@@ -12,7 +12,7 @@ export class ProfileController {
 
   /**
    * @openapi
-   * /users/{id}:
+   * /api/users/{id}:
    *   put:
    *     summary: Edit user profile
    *     description: Update a user's firstName, middleName, and/or lastName. At least one field must be provided. Requires a valid Bearer token.

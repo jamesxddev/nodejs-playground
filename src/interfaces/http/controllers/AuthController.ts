@@ -15,7 +15,7 @@ export class AuthController {
 
   /**
    * @openapi
-   * /auth/login:
+   * /api/auth/login:
    *   post:
    *     summary: User Login
    *     description: Authenticate a user with email and password
@@ -81,7 +81,7 @@ export class AuthController {
 
   /**
    * @openapi
-   * /auth/register:
+   * /api/auth/register:
    *   post:
    *     summary: Register a new user
    *     description: Create a new user account with email and password

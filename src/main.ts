@@ -25,8 +25,8 @@ app.get('/health', (req, res) => {
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 // Routes
-app.use('/auth', authRouter);
-app.use('/users', profileRouter);
+app.use('/api/auth', authRouter);
+app.use('/api/users', profileRouter);
 
 // Error handling middleware (must be last)
 app.use(errorHandler);
