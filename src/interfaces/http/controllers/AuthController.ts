@@ -67,12 +67,12 @@ export class AuthController {
       const loginDTO = validationResult.data;
 
       // Execute login use case
-      const user = await this.loginUseCase.execute(loginDTO);
+      const { token } = await this.loginUseCase.execute(loginDTO);
 
       // Return response
       res.status(200).json({
         message: 'Login successful',
-        user: user.toJSON(),
+        token,
       });
     } catch (error) {
       throw error;

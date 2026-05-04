@@ -46,16 +46,9 @@ const options = {
               type: 'string',
               example: 'Login successful',
             },
-            user: {
-              type: 'object',
-              properties: {
-                id: {
-                  type: 'string',
-                },
-                email: {
-                  type: 'string',
-                },
-              },
+            token: {
+              type: 'string',
+              example: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...',
             },
           },
         },
