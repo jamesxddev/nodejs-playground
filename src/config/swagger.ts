@@ -15,6 +15,13 @@ const options = {
       },
     ],
     components: {
+      securitySchemes: {
+        bearerAuth: {
+          type: 'http',
+          scheme: 'bearer',
+          bearerFormat: 'JWT',
+        },
+      },
       schemas: {
         LoginRequest: {
           type: 'object',
@@ -97,6 +104,46 @@ const options = {
             message: {
               type: 'string',
               example: 'User created successfully',
+            },
+            user: {
+              type: 'object',
+              properties: {
+                id: { type: 'string' },
+                email: { type: 'string' },
+                firstName: { type: 'string' },
+                middleName: { type: 'string' },
+                lastName: { type: 'string' },
+                isActive: { type: 'boolean' },
+                createdAt: { type: 'string', format: 'date-time' },
+                updatedAt: { type: 'string', format: 'date-time' },
+              },
+            },
+          },
+        },
+        EditUserRequest: {
+          type: 'object',
+          properties: {
+            firstName: {
+              type: 'string',
+              example: 'John',
+            },
+            middleName: {
+              type: 'string',
+              example: 'Paul',
+            },
+            lastName: {
+              type: 'string',
+              example: 'Doe',
+            },
+          },
+          description: 'At least one field must be provided.',
+        },
+        EditUserResponse: {
+          type: 'object',
+          properties: {
+            message: {
+              type: 'string',
+              example: 'User updated successfully',
             },
             user: {
               type: 'object',
