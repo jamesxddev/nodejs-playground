@@ -6,6 +6,7 @@ import { ProfileController } from '../interfaces/http/controllers/ProfileControl
 import { LoginUseCase } from '../domains/auth/usecases/LoginUseCase';
 import { CreateUserUseCase } from '../domains/auth/usecases/CreateUserUseCase';
 import { EditUserUseCase } from '../domains/auth/usecases/EditUserUseCase';
+import { GetUserUseCase } from '../domains/auth/usecases/GetUserUseCase';
 
 export function registerDependencies(prismaClient: PrismaClient) {
   // Register database
@@ -15,6 +16,7 @@ export function registerDependencies(prismaClient: PrismaClient) {
   container.registerSingleton(LoginUseCase, LoginUseCase);
   container.registerSingleton(CreateUserUseCase, CreateUserUseCase);
   container.registerSingleton(EditUserUseCase, EditUserUseCase);
+  container.registerSingleton(GetUserUseCase, GetUserUseCase);
 
   // Register controllers
   container.registerSingleton(AuthController, AuthController);
