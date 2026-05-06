@@ -34,7 +34,7 @@ describe('ProfileController - editUser', () => {
 
   beforeEach(() => {
     editUserUseCase = { execute: jest.fn() };
-    controller = new ProfileController(editUserUseCase);
+    controller = new ProfileController(editUserUseCase, { execute: jest.fn() } as any);
   });
 
   it('should return 200 with updated user on valid input', async () => {

@@ -5,6 +5,14 @@ import { authenticate } from '../../../shared/middleware/authenticate';
 
 const profileRouter = Router();
 
+profileRouter.get('/:id', authenticate, async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    await container.resolve(ProfileController).getUser(req, res);
+  } catch (error) {
+    next(error);
+  }
+});
+
 profileRouter.put('/:id', authenticate, async (req: Request, res: Response, next: NextFunction) => {
   try {
     await container.resolve(ProfileController).editUser(req, res);
