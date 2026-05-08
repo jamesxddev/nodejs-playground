@@ -21,4 +21,12 @@ profileRouter.put('/:id', authenticate, async (req: Request, res: Response, next
   }
 });
 
+profileRouter.patch('/:id/password', authenticate, async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    await container.resolve(ProfileController).changePassword(req, res);
+  } catch (error) {
+    next(error);
+  }
+});
+
 export default profileRouter;

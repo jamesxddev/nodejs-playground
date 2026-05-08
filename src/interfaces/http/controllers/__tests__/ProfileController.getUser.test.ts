@@ -36,7 +36,7 @@ describe('ProfileController - getUser', () => {
   beforeEach(() => {
     editUserUseCase = { execute: jest.fn() };
     getUserUseCase = { execute: jest.fn() };
-    controller = new ProfileController(editUserUseCase, getUserUseCase);
+    controller = new ProfileController(editUserUseCase, getUserUseCase, { execute: jest.fn() } as any);
   });
 
   it('should return 200 with user data when user exists', async () => {
