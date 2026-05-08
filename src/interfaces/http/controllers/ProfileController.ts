@@ -3,6 +3,7 @@ import { injectable, inject } from 'tsyringe';
 import { EditUserUseCase } from '../../../domains/auth/usecases/EditUserUseCase';
 import { GetUserUseCase } from '../../../domains/auth/usecases/GetUserUseCase';
 import { ChangePasswordUseCase } from '../../../domains/auth/usecases/ChangePasswordUseCase';
+import { DeactivateAccountUseCase } from '../../../domains/auth/usecases/DeactivateAccountUseCase';
 import { EditUserDTOSchema } from '../../../domains/auth/dtos/EditUserDTO';
 import { ChangePasswordDTOSchema } from '../../../domains/auth/dtos/ChangePasswordDTO';
 import { ValidationError } from '../../../shared/errors/AppError';
@@ -13,6 +14,7 @@ export class ProfileController {
     @inject(EditUserUseCase) private editUserUseCase: EditUserUseCase,
     @inject(GetUserUseCase) private getUserUseCase: GetUserUseCase,
     @inject(ChangePasswordUseCase) private changePasswordUseCase: ChangePasswordUseCase,
+    @inject(DeactivateAccountUseCase) private deactivateAccountUseCase: DeactivateAccountUseCase,
   ) {}
 
   /**
@@ -221,6 +223,63 @@ export class ProfileController {
         message: 'User retrieved successfully',
         user: user.toJSON(),
       });
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  /**
+   * @openapi
+   * /api/users/{id}:
+   *   delete:
+   *     summary: Deactivate account
+   *     description: Deactivates the user account by setting isActive to false. Requires a valid Bearer token.
+   *     tags:
+   *       - Profile
+   *     security:
+   *       - bearerAuth: []
+   *     parameters:
+   *       - in: path
+   *         name: id
+   *         required: true
+   *         schema:
+   *           type: string
+   *         description: The user ID
+   *     responses:
+   *       200:
+   *         description: Account deactivated successfully
+   *         content:
+   *           application/json:
+   *             schema:
+   *               type: object
+   *               properties:
+   *                 message:
+   *                   type: string
+   *                   example: Account deactivated successfully
+   *       401:
+   *         description: Unauthorized - missing or invalid Bearer token
+   *         content:
+   *           application/json:
+   *             schema:
+   *               $ref: '#/components/schemas/ErrorResponse'
+   *       404:
+   *         description: User not found
+   *         content:
+   *           application/json:
+   *             schema:
+   *               $ref: '#/components/schemas/ErrorResponse'
+   *       500:
+   *         description: Internal server error
+   *         content:
+   *           application/json:
+   *             schema:
+   *               $ref: '#/components/schemas/ErrorResponse'
+   */
+  async deactivateAccount(req: Request, res: Response): Promise<void> {
+    try {
+      await this.deactivateAccountUseCase.execute(req.params.id);
+
+      res.status(200).json({ message: 'Account deactivated successfully' });
     } catch (error) {
       throw error;
     }

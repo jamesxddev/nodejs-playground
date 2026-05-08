@@ -23,6 +23,7 @@ describe('ProfileController - changePassword', () => {
       { execute: jest.fn() } as any,
       { execute: jest.fn() } as any,
       changePasswordUseCase,
+      { execute: jest.fn() } as any,
     );
   });
 
