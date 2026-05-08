@@ -29,4 +29,12 @@ profileRouter.patch('/:id/password', authenticate, async (req: Request, res: Res
   }
 });
 
+profileRouter.delete('/:id', authenticate, async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    await container.resolve(ProfileController).deactivateAccount(req, res);
+  } catch (error) {
+    next(error);
+  }
+});
+
 export default profileRouter;
