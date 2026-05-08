@@ -131,6 +131,25 @@ const options = {
           },
           description: 'At least one field must be provided.',
         },
+        ChangePasswordRequest: {
+          type: 'object',
+          required: ['currentPassword', 'newPassword'],
+          properties: {
+            currentPassword: {
+              type: 'string',
+              format: 'password',
+              example: 'OldPass1!',
+              description: 'The user\'s current password',
+            },
+            newPassword: {
+              type: 'string',
+              format: 'password',
+              example: 'NewPass1!',
+              description: 'The new password (minimum 8 characters)',
+              minLength: 8,
+            },
+          },
+        },
         EditUserResponse: {
           type: 'object',
           properties: {
