@@ -44,7 +44,8 @@ describe('AuthController - register', () => {
   beforeEach(() => {
     loginUseCase = { execute: jest.fn() };
     createUserUseCase = { execute: jest.fn() };
-    controller = new AuthController(loginUseCase, createUserUseCase);
+    const logoutUseCase = { execute: jest.fn() };
+    controller = new AuthController(loginUseCase, createUserUseCase, logoutUseCase as any);
   });
 
   it('should return 201 with user data on valid input', async () => {

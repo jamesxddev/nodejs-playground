@@ -9,6 +9,7 @@ import { EditUserUseCase } from '../domains/auth/usecases/EditUserUseCase';
 import { GetUserUseCase } from '../domains/auth/usecases/GetUserUseCase';
 import { ChangePasswordUseCase } from '../domains/auth/usecases/ChangePasswordUseCase';
 import { DeactivateAccountUseCase } from '../domains/auth/usecases/DeactivateAccountUseCase';
+import { LogoutUseCase } from '../domains/auth/usecases/LogoutUseCase';
 
 export function registerDependencies(prismaClient: PrismaClient) {
   // Register database
@@ -21,6 +22,7 @@ export function registerDependencies(prismaClient: PrismaClient) {
   container.registerSingleton(GetUserUseCase, GetUserUseCase);
   container.registerSingleton(ChangePasswordUseCase, ChangePasswordUseCase);
   container.registerSingleton(DeactivateAccountUseCase, DeactivateAccountUseCase);
+  container.registerSingleton(LogoutUseCase, LogoutUseCase);
 
   // Register controllers
   container.registerSingleton(AuthController, AuthController);
