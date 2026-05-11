@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import { injectable, inject } from 'tsyringe';
 import { LoginUseCase } from '../../../domains/auth/usecases/LoginUseCase';
 import { CreateUserUseCase } from '../../../domains/auth/usecases/CreateUserUseCase';
+import { LogoutUseCase } from '../../../domains/auth/usecases/LogoutUseCase';
 import { LoginDTOSchema } from '../../../domains/auth/dtos/LoginDTO';
 import { CreateUserDTOSchema } from '../../../domains/auth/dtos/CreateUserDTO';
 import { ValidationError } from '../../../shared/errors/AppError';
@@ -11,6 +12,7 @@ export class AuthController {
   constructor(
     @inject(LoginUseCase) private loginUseCase: LoginUseCase,
     @inject(CreateUserUseCase) private createUserUseCase: CreateUserUseCase,
+    @inject(LogoutUseCase) private logoutUseCase: LogoutUseCase,
   ) {}
 
   /**
@@ -130,6 +132,46 @@ export class AuthController {
       res.status(201).json({
         message: 'User created successfully',
         user: user.toJSON(),
+      });
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  /**
+   * @openapi
+   * /api/auth/logout:
+   *   post:
+   *     summary: Logout
+   *     description: Invalidate the current session. The client must discard the token.
+   *     tags:
+   *       - Authentication
+   *     security:
+   *       - bearerAuth: []
+   *     responses:
+   *       200:
+   *         description: Logout successful
+   *         content:
+   *           application/json:
+   *             schema:
+   *               type: object
+   *               properties:
+   *                 message:
+   *                   type: string
+   *                   example: Logout successful
+   *       401:
+   *         description: Unauthorized
+   *         content:
+   *           application/json:
+   *             schema:
+   *               $ref: '#/components/schemas/ErrorResponse'
+   */
+  async logout(req: Request, res: Response): Promise<void> {
+    try {
+      await this.logoutUseCase.execute((req as any).user.sub);
+
+      res.status(200).json({
+        message: 'Logout successful',
       });
     } catch (error) {
       throw error;
